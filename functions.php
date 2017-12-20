@@ -7,6 +7,8 @@ if ( ! function_exists( 'wp_tax_radio_group' ) ) {
 	 *
 	 * @param string $taxonomy The taxonomy from which to fetch terms
 	 * @param array $args An array of arguments for customizing output (see $defaultArgs for available options)
+	 *
+	 * @return string
 	 */
 	function wp_tax_radio_group( $taxonomy, array $args = [] ) {
 
@@ -14,7 +16,9 @@ if ( ! function_exists( 'wp_tax_radio_group' ) ) {
 			'class'           => 'categorychecklist', // Default class name for ul element
 			'container'       => true, // Whether or not to wrap output in a container element
 			'container_class' => 'categorydiv', // Default class name for container element
+			'disabled'        => false, // Disable the field
 			'max_depth'       => - 1, // Setting to a value greater than 0 will show terms in a nested format
+			'required'        => false, // Require the field
 			'selected'        => 0, // ID for the currently selected term
 			'term_args'       => [ // Args passed to get_terms()
 				'hide_empty' => false, // Show all terms by default
