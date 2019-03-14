@@ -67,7 +67,7 @@ class WalkerTaxonomyRadioGroup extends \Walker {
 		$output .= sprintf(
 			'<label><input type="radio" id="%s" name="%s" value="%s"%s%s%s /> %s</label>',
 			esc_attr( "in{$term->taxonomy}-{$term->term_id}" ),
-			esc_attr( "tax_input[{$term->taxonomy}]" ),
+			esc_attr( "tax_input[{$term->taxonomy}][]" ),
 			esc_attr( $term->term_id ),
 			checked( $term->term_id, $selectedTermId, false ),
 			disabled( empty( $args['disabled'] ), false, false ),
