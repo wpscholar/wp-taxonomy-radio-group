@@ -6,7 +6,7 @@ if ( ! function_exists( 'wp_tax_radio_group' ) ) {
 	 * Displays a radio group of taxonomy terms.
 	 *
 	 * @param string $taxonomy The taxonomy from which to fetch terms
-	 * @param array $args An array of arguments for customizing output (see $defaultArgs for available options)
+	 * @param array  $args     An array of arguments for customizing output (see $defaultArgs for available options)
 	 *
 	 * @return string
 	 */
@@ -19,6 +19,8 @@ if ( ! function_exists( 'wp_tax_radio_group' ) ) {
 			'disabled'        => false, // Disable the field
 			'max_depth'       => - 1, // Setting to a value greater than 0 will show terms in a nested format
 			'required'        => false, // Require the field
+			'reset'           => true, // Whether or not to allow resetting (clearing) fields.
+			'reset_text'      => esc_html__( 'Reset', 'wp-tax-radio-group' ),
 			'selected'        => 0, // ID for the currently selected term
 			'term_args'       => [ // Args passed to get_terms()
 				'hide_empty' => false, // Show all terms by default
@@ -48,8 +50,8 @@ if ( ! function_exists( 'wp_tax_radio_group' ) ) {
 		unset( $args['term_args'] );
 
 		// Allow control over class, container, and container class
-		$class = sanitize_html_class( (string) $args['class'] );
-		$container = wp_validate_boolean( $args['container'] );
+		$class           = sanitize_html_class( (string) $args['class'] );
+		$container       = wp_validate_boolean( $args['container'] );
 		$container_class = sanitize_html_class( (string) $args['container_class'] );
 		unset( $args['class'], $args['container'], $args['container_class'] );
 
@@ -61,6 +63,27 @@ if ( ! function_exists( 'wp_tax_radio_group' ) ) {
 		$output .= '<ul class="' . esc_attr( $class ) . '">';
 		$output .= $walker->walk( $terms, $max_depth, $args );
 		$output .= '</ul>';
+
+		if ( $args['reset'] ) {
+			$func_name = 'wpTaxRadioGroup_' . md5( $taxonomy );
+			$output    .= "<a href=\"#\" onclick=\"{$func_name}.apply(this, arguments)\">{$args['reset_text']}</a>";
+			$output    .= <<<SCRIPT
+<script>
+function {$func_name}(e) {
+    e.preventDefault(e);
+    Array
+      .from(
+          e.target.previousSibling.querySelectorAll('input[type="radio"]')
+        )
+      .forEach(
+          (el) => {
+              el.checked = false;
+          }
+      );
+}
+</script>
+SCRIPT;
+		}
 		$output .= $container ? '</div>' : '';
 
 		return $output;
