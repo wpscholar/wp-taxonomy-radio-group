@@ -22,11 +22,12 @@ class WalkerTaxonomyRadioGroup extends \Walker {
 	/**
 	 * Starts the list before the elements are added.
 	 *
+	 * @param string $output Passed by reference. Used to append additional content.
+	 * @param int    $depth  Depth of taxonomy. Used for tab indentation.
+	 * @param array  $args   An array of arguments.
+	 *
 	 * @see Walker:start_lvl()
 	 *
-	 * @param string $output Passed by reference. Used to append additional content.
-	 * @param int $depth Depth of taxonomy. Used for tab indentation.
-	 * @param array $args An array of arguments.
 	 */
 	public function start_lvl( &$output, $depth = 0, $args = [] ) {
 		$indent = str_repeat( "\t", $depth );
@@ -36,11 +37,12 @@ class WalkerTaxonomyRadioGroup extends \Walker {
 	/**
 	 * Ends the list of after the elements are added.
 	 *
+	 * @param string $output Passed by reference. Used to append additional content.
+	 * @param int    $depth  Depth of taxonomy. Used for tab indentation.
+	 * @param array  $args   An array of arguments.
+	 *
 	 * @see Walker::end_lvl()
 	 *
-	 * @param string $output Passed by reference. Used to append additional content.
-	 * @param int $depth Depth of taxonomy. Used for tab indentation.
-	 * @param array $args An array of arguments.
 	 */
 	public function end_lvl( &$output, $depth = 0, $args = [] ) {
 		$indent = str_repeat( "\t", $depth );
@@ -50,13 +52,14 @@ class WalkerTaxonomyRadioGroup extends \Walker {
 	/**
 	 * Start the element output.
 	 *
+	 * @param string   $output Passed by reference. Used to append additional content.
+	 * @param \WP_Term $term   The current term object.
+	 * @param int      $depth  Depth of the term in reference to parents. Default 0.
+	 * @param array    $args   An array of arguments.
+	 * @param int      $id     ID of the current term.
+	 *
 	 * @see Walker::start_el()
 	 *
-	 * @param string $output Passed by reference. Used to append additional content.
-	 * @param \WP_Term $term The current term object.
-	 * @param int $depth Depth of the term in reference to parents. Default 0.
-	 * @param array $args An array of arguments.
-	 * @param int $id ID of the current term.
 	 */
 	public function start_el( &$output, $term, $depth = 0, $args = [], $id = 0 ) {
 
@@ -80,14 +83,15 @@ class WalkerTaxonomyRadioGroup extends \Walker {
 	/**
 	 * Ends the element output, if needed.
 	 *
-	 * @see Walker::end_el()
+	 * @param string   $output Passed by reference. Used to append additional content.
+	 * @param \WP_Term $term   The current term object.
+	 * @param int      $depth  Depth of the term in reference to parents. Default 0.
+	 * @param array    $args   An array of arguments.
+	 *
+	 * @see   Walker::end_el()
 	 *
 	 * @since 2.5.1
 	 *
-	 * @param string $output Passed by reference. Used to append additional content.
-	 * @param \WP_Term $term The current term object.
-	 * @param int $depth Depth of the term in reference to parents. Default 0.
-	 * @param array $args An array of arguments.
 	 */
 	public function end_el( &$output, $term, $depth = 0, $args = [] ) {
 		$output .= "</li>\n";
